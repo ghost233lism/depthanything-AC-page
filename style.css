@@ -712,6 +712,36 @@ section {
     backdrop-filter: blur(10px);
 }
 
+.abstract-text-container {
+    max-width: 900px;
+    margin: 0 auto 4rem;
+    text-align: center;
+}
+
+.abstract-paragraph {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    animation: fadeInUp 1s ease 0.5s both;
+}
+
+.abstract-paragraph p {
+    color: var(--light-color);
+    font-size: 1.1rem;
+    line-height: 1.8;
+    text-align: justify;
+    margin: 0 0 1.5rem 0;
+    font-weight: 400;
+    letter-spacing: 0.3px;
+}
+
+.abstract-paragraph p:last-child {
+    margin-bottom: 0;
+}
+
 .abstract-content {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -1147,6 +1177,22 @@ section {
         grid-template-columns: 1fr;
     }
     
+    .abstract-text-container {
+        margin-bottom: 3rem;
+        padding: 0 1rem;
+    }
+    
+    .abstract-paragraph {
+        padding: 1.5rem;
+        font-size: 1rem;
+    }
+    
+    .abstract-paragraph p {
+        font-size: 1rem;
+        line-height: 1.6;
+        text-align: left;
+    }
+    
     .results-grid {
         grid-template-columns: 1fr;
     }
@@ -1183,6 +1229,14 @@ section {
     
     .teaser-image {
         border-radius: 15px;
+    }
+    
+    .back-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+        font-size: 1.1rem;
     }
     
     .preview-grid {
@@ -1269,4 +1323,265 @@ section {
 
 body {
     animation: pageLoad 1s ease-out;
+}
+
+/* 回到顶部按钮 */
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: var(--gradient-2);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(240, 147, 251, 0.4);
+    transition: all 0.3s ease;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.back-to-top:hover {
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 6px 25px rgba(240, 147, 251, 0.6);
+}
+
+.back-to-top:active {
+    transform: translateY(-2px) scale(1.05);
+}
+
+/* Framework 模块样式 */
+.framework-section {
+    padding: 4rem 0;
+    margin: 2rem 0;
+}
+
+.framework-image-container {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto 3rem auto;
+    overflow: hidden;
+}
+
+.framework-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 15px;
+    transition: all 0.5s ease;
+    opacity: 0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.framework-image.loaded {
+    opacity: 1;
+}
+
+.framework-image-container:hover .framework-image {
+    transform: scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.framework-caption {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    text-align: center;
+}
+
+.framework-caption h4 {
+    color: var(--light-color);
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.framework-caption p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+    line-height: 1.7;
+    margin: 0;
+    text-align: justify;
+    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    padding: 2rem;
+}
+
+/* Framework 响应式设计 */
+@media (max-width: 768px) {
+    .framework-image-container {
+        margin: 0 1rem 3rem 1rem;
+    }
+    
+    .framework-image {
+        border-radius: 10px;
+    }
+    
+    .framework-caption {
+        padding: 0 1rem;
+    }
+    
+    .framework-caption h4 {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .framework-caption p {
+        font-size: 0.95rem;
+        text-align: left;
+        padding: 1.5rem;
+        border-radius: 12px;
+    }
+}
+
+/* Data Coverage 表格样式 */
+.data-coverage-section {
+    padding: 4rem 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    backdrop-filter: blur(10px);
+    margin: 2rem 0;
+}
+
+.data-table-container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.table-wrapper {
+    overflow-x: auto;
+    margin-bottom: 2rem;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: transparent;
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.data-table thead {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+}
+
+.data-table th {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    border: none;
+    white-space: nowrap;
+}
+
+.data-table th:first-child {
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+}
+
+.data-table th:last-child {
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+.data-table tbody tr {
+    transition: all 0.3s ease;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.data-table tbody tr:hover {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.data-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.data-table td {
+    padding: 0.75rem 1rem;
+    font-size: 0.85rem;
+    color: #333;
+    border: none;
+    vertical-align: middle;
+}
+
+.data-table td:first-child {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.text-success {
+    color: #27ae60 !important;
+    font-size: 1rem;
+}
+
+.table-caption {
+    text-align: center;
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: rgba(102, 126, 234, 0.05);
+    border-radius: 10px;
+    border-left: 4px solid #667eea;
+}
+
+.table-caption p {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #555;
+    font-style: italic;
+}
+
+/* Data Coverage 响应式设计 */
+@media (max-width: 768px) {
+    .data-table-container {
+        padding: 1.5rem;
+        margin: 0 1rem;
+    }
+    
+    .data-table th,
+    .data-table td {
+        padding: 0.75rem 1rem;
+        font-size: 0.85rem;
+    }
+    
+    .table-wrapper {
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .table-caption {
+        padding: 1rem;
+        margin: 0 -0.5rem;
+    }
+    
+    .table-caption p {
+        font-size: 0.85rem;
+    }
 } 

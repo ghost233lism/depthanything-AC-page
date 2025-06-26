@@ -10,6 +10,7 @@ const abstractCards = document.querySelectorAll('.abstract-card');
 const resourceCards = document.querySelectorAll('.resource-card');
 const authorLinks = document.querySelectorAll('.author-link');
 const langButtons = document.querySelectorAll('.lang-btn');
+const backToTopBtn = document.getElementById('back-to-top');
 
 // 全局语言变量
 let currentLanguage = 'en'; // 默认英文
@@ -128,6 +129,11 @@ function setupEventListeners() {
     if (copyBibtexBtn) {
         copyBibtexBtn.addEventListener('click', copyBibtexToClipboard);
     }
+    
+    // 回到顶部按钮事件
+    if (backToTopBtn) {
+        backToTopBtn.addEventListener('click', scrollToTop);
+    }
 }
 
 // 平滑滚动功能
@@ -159,6 +165,21 @@ function scrollToAbstract() {
             block: 'start'
         });
     }
+}
+
+// 回到顶部功能
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+    
+    // 显示通知
+    const messages = {
+        'en': '⬆️ Scrolled to top',
+        'zh': '⬆️ 已回到顶部'
+    };
+    showNotification(messages[currentLanguage], 'success');
 }
 
 // 处理滚动事件
@@ -198,6 +219,15 @@ function handleScroll() {
             element.classList.add('animate-in');
         }
     });
+    
+    // 回到顶部按钮显隐控制
+    if (backToTopBtn) {
+        if (scrollY > 300) {
+            backToTopBtn.classList.add('show');
+        } else {
+            backToTopBtn.classList.remove('show');
+        }
+    }
 }
 
 // 这些函数已在文件末尾重新定义以支持多语言
@@ -1004,6 +1034,7 @@ function preloadCriticalImages() {
 window.PageInteractions = {
     showNotification,
     scrollToAbstract,
+    scrollToTop,
     showDemoModal,
     closeDemoModal,
     switchLanguage: handleLanguageSwitch,
