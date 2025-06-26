@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
     createParticleEffect();
     setupScrollEffects();
     initializeLanguage();
+    initializeComparisonSliders();
 });
 
 // 初始化动画效果
@@ -773,6 +774,139 @@ function copyBibtexToClipboard() {
     }
 }
 
+// 初始化对比滑块功能
+function initializeComparisonSliders() {
+    const sliders = document.querySelectorAll('.comparison-slider');
+    
+    sliders.forEach(slider => {
+        setupSliderInteraction(slider);
+    });
+}
+
+function setupSliderInteraction(slider) {
+    const handle = slider.querySelector('.slider-handle');
+    const afterImage = slider.querySelector('.after-image');
+    let isDragging = false;
+    let sliderRect = slider.getBoundingClientRect();
+    
+    // 更新滑块边界
+    function updateSliderRect() {
+        sliderRect = slider.getBoundingClientRect();
+    }
+    
+    // 更新滑块位置
+    function updateSlider(x) {
+        const rect = sliderRect;
+        const relativeX = Math.max(0, Math.min(1, (x - rect.left) / rect.width));
+        const percentage = relativeX * 100;
+        
+        // 更新滑块手柄位置
+        handle.style.left = `${percentage}%`;
+        
+        // 更新after图片的裁剪路径
+        afterImage.style.clipPath = `polygon(${percentage}% 0%, 100% 0%, 100% 100%, ${percentage}% 100%)`;
+        
+        // 更新标签显示状态
+        updateLabelsVisibility(percentage);
+    }
+    
+    // 更新标签可见性
+    function updateLabelsVisibility(percentage) {
+        const labels = slider.querySelector('.comparison-labels');
+        if (!labels) return;
+        
+        const leftLabel = labels.querySelector('.label-left');
+        const rightLabel = labels.querySelector('.label-right');
+        
+        if (leftLabel && rightLabel) {
+            // 当滑块位置大于75%时隐藏左标签（滑块覆盖左标签区域）
+            if (percentage < 25) {
+                leftLabel.style.opacity = '0';
+                leftLabel.style.transform = 'translateY(-10px)';
+            } else {
+                leftLabel.style.opacity = '1';
+                leftLabel.style.transform = 'translateY(0)';
+            }
+            
+            // 当滑块位置小于25%时隐藏右标签（滑块覆盖右标签区域）
+            if (percentage > 75) {
+                rightLabel.style.opacity = '0';
+                rightLabel.style.transform = 'translateY(-10px)';
+            } else {
+                rightLabel.style.opacity = '1';
+                rightLabel.style.transform = 'translateY(0)';
+            }
+        }
+    }
+    
+    // 鼠标按下事件
+    function handleMouseDown(e) {
+        isDragging = true;
+        updateSliderRect();
+        slider.style.cursor = 'ew-resize';
+        updateSlider(e.clientX);
+        
+        // 防止图片拖拽
+        e.preventDefault();
+    }
+    
+    // 鼠标移动事件
+    function handleMouseMove(e) {
+        if (!isDragging) return;
+        
+        updateSlider(e.clientX);
+    }
+    
+    // 鼠标松开事件
+    function handleMouseUp() {
+        isDragging = false;
+        slider.style.cursor = 'ew-resize';
+    }
+    
+    // 触摸事件处理（移动端支持）
+    function handleTouchStart(e) {
+        isDragging = true;
+        updateSliderRect();
+        const touch = e.touches[0];
+        updateSlider(touch.clientX);
+        e.preventDefault();
+    }
+    
+    function handleTouchMove(e) {
+        if (!isDragging) return;
+        
+        const touch = e.touches[0];
+        updateSlider(touch.clientX);
+        e.preventDefault();
+    }
+    
+    function handleTouchEnd() {
+        isDragging = false;
+    }
+    
+    // 绑定鼠标事件
+    slider.addEventListener('mousedown', handleMouseDown);
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+    
+    // 绑定触摸事件
+    slider.addEventListener('touchstart', handleTouchStart, { passive: false });
+    document.addEventListener('touchmove', handleTouchMove, { passive: false });
+    document.addEventListener('touchend', handleTouchEnd);
+    
+    // 响应式处理 - 窗口大小改变时更新边界
+    window.addEventListener('resize', updateSliderRect);
+    
+    // 防止图片拖拽
+    const images = slider.querySelectorAll('img');
+    images.forEach(img => {
+        img.addEventListener('dragstart', e => e.preventDefault());
+    });
+    
+    // 初始化标签状态（滑块默认在50%位置，两个标签都显示）
+    updateLabelsVisibility(50);
+}
+
 // 导出主要函数（如果需要在其他地方使用）
 window.PageInteractions = {
     showNotification,
@@ -781,5 +915,6 @@ window.PageInteractions = {
     closeDemoModal,
     switchLanguage: handleLanguageSwitch,
     getCurrentLanguage: () => currentLanguage,
-    copyBibtex: copyBibtexToClipboard
+    copyBibtex: copyBibtexToClipboard,
+    initializeComparisonSliders
 }; 

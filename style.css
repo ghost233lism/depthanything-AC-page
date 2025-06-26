@@ -519,6 +519,134 @@ body {
     border-radius: 20px;
 }
 
+/* Quick Preview 部分样式 */
+.preview-section {
+    padding: 5rem 0;
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.preview-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.comparison-container {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    animation: fadeInUp 1s ease forwards;
+}
+
+.comparison-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+}
+
+.comparison-slider {
+    position: relative;
+    width: 100%;
+    height: 280px;
+    overflow: hidden;
+    cursor: ew-resize;
+    user-select: none;
+}
+
+.comparison-images {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.before-image,
+.after-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.after-image {
+    clip-path: polygon(50% 0%, 100% 0%, 100% 100%, 50% 100%);
+    transition: clip-path 0.1s ease;
+}
+
+.slider-handle {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 2px;
+    height: 100%;
+    transform: translateX(-50%);
+    z-index: 10;
+    transition: left 0.1s ease;
+}
+
+.slider-line {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent 0%, #fff 20%, #fff 80%, transparent 100%);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.slider-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+    font-size: 1rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.slider-button:hover {
+    background: #fff;
+    transform: translate(-50%, -50%) scale(1.1);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4);
+}
+
+.comparison-labels {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    display: flex;
+    justify-content: space-between;
+    z-index: 15;
+    pointer-events: none;
+}
+
+.label-left,
+.label-right {
+    color: white;
+    padding: 6px 14px;
+    font-size: 1.25rem;
+    font-weight: 600;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    letter-spacing: 0.5px;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+.comparison-container:nth-child(1) { animation-delay: 0.2s; }
+.comparison-container:nth-child(2) { animation-delay: 0.4s; }
+.comparison-container:nth-child(3) { animation-delay: 0.6s; }
+
 /* 通用节区样式 */
 section {
     padding: 5rem 0;
@@ -1022,6 +1150,33 @@ section {
     
     .teaser-image {
         border-radius: 15px;
+    }
+    
+    .preview-grid {
+        gap: 2rem;
+        padding: 0 1rem;
+    }
+    
+    .comparison-slider {
+        height: 250px;
+    }
+    
+    .slider-button {
+        width: 35px;
+        height: 35px;
+        font-size: 0.9rem;
+    }
+    
+    .comparison-labels {
+        top: 15px;
+        left: 15px;
+        right: 15px;
+    }
+    
+    .label-left,
+    .label-right {
+        padding: 5px 10px;
+        font-size: 0.75rem;
     }
 }
 
