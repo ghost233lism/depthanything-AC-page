@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
     setupScrollEffects();
     initializeLanguage();
     initializeComparisonSliders();
+    initializeLazyLoading();
 });
 
 // 初始化动画效果
@@ -907,6 +908,98 @@ function setupSliderInteraction(slider) {
     updateLabelsVisibility(50);
 }
 
+// 初始化懒加载功能
+function initializeLazyLoading() {
+    // 检查浏览器是否支持 Intersection Observer
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    loadImage(img);
+                    observer.unobserve(img);
+                }
+            });
+        }, {
+            rootMargin: '50px' // 提前50px开始加载
+        });
+
+        // 观察所有懒加载图片
+        const lazyImages = document.querySelectorAll('.lazy-load');
+        lazyImages.forEach(img => imageObserver.observe(img));
+    } else {
+        // 降级处理：直接加载所有图片
+        const lazyImages = document.querySelectorAll('.lazy-load');
+        lazyImages.forEach(img => loadImage(img));
+    }
+}
+
+// 加载单个图片
+function loadImage(img) {
+    const src = img.getAttribute('data-src');
+    if (!src) return;
+
+    // 显示加载状态
+    const placeholder = img.parentElement.querySelector('.image-placeholder');
+    if (placeholder) {
+        placeholder.textContent = 'Loading...';
+    }
+
+    // 创建新图片对象进行预加载
+    const imageLoader = new Image();
+    
+    imageLoader.onload = function() {
+        // 图片加载完成后设置src并添加loaded类
+        img.src = src;
+        img.classList.add('loaded');
+        
+        // 隐藏占位符
+        if (placeholder) {
+            setTimeout(() => {
+                placeholder.style.display = 'none';
+            }, 300);
+        }
+        
+        // 显示加载成功通知（仅teaser图片）
+        if (img.classList.contains('teaser-image')) {
+            const messages = {
+                'en': '🖼️ Teaser image loaded successfully!',
+                'zh': '🖼️ 预告图片加载成功！'
+            };
+            showNotification(messages[currentLanguage], 'success');
+        }
+    };
+    
+    imageLoader.onerror = function() {
+        // 图片加载失败处理
+        if (placeholder) {
+            placeholder.textContent = 'Failed to load';
+            placeholder.style.color = '#ff6b6b';
+        }
+        
+        const messages = {
+            'en': '❌ Failed to load image',
+            'zh': '❌ 图片加载失败'
+        };
+        showNotification(messages[currentLanguage], 'error');
+    };
+    
+    // 开始加载图片
+    imageLoader.src = src;
+}
+
+// 预加载关键图片（可选）
+function preloadCriticalImages() {
+    const criticalImages = [
+        'image/teaser.png'
+    ];
+    
+    criticalImages.forEach(src => {
+        const img = new Image();
+        img.src = src;
+    });
+}
+
 // 导出主要函数（如果需要在其他地方使用）
 window.PageInteractions = {
     showNotification,
@@ -916,5 +1009,7 @@ window.PageInteractions = {
     switchLanguage: handleLanguageSwitch,
     getCurrentLanguage: () => currentLanguage,
     copyBibtex: copyBibtexToClipboard,
-    initializeComparisonSliders
+    initializeComparisonSliders,
+    initializeLazyLoading,
+    preloadCriticalImages
 }; 

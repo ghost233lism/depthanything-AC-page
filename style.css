@@ -506,17 +506,54 @@ body {
 }
 
 /* Teaser 图片样式 */
+
+.teaser-image {
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    transition: opacity 0.3s ease;
+}
+
+.teaser-image.lazy-load {
+    opacity: 0;
+}
+
+.teaser-image.loaded {
+    opacity: 1;
+}
+
+.image-placeholder {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.1rem;
+    z-index: 1;
+}
+
 .teaser-container {
+    position: relative;
     text-align: center;
     max-width: 900px;
     margin: 3rem auto 0;
     animation: fadeInUp 1s ease 2.5s both;
 }
 
-.teaser-image {
+.lazy-load {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.lazy-load.loaded {
+    opacity: 1;
+}
+
+.comparison-images {
+    position: relative;
     width: 100%;
-    height: auto;
-    border-radius: 20px;
+    height: 100%;
+    background: linear-gradient(135deg, #667eea, #764ba2);
 }
 
 /* Quick Preview 部分样式 */
@@ -557,11 +594,7 @@ body {
     user-select: none;
 }
 
-.comparison-images {
-    position: relative;
-    width: 100%;
-    height: 100%;
-}
+
 
 .before-image,
 .after-image {
