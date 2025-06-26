@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Depth Anything At Any Condition - 研究论文</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- 动态背景 -->
+    <div class="background-animation">
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+            <div class="shape shape-4"></div>
+            <div class="shape shape-5"></div>
+        </div>
+    </div>
+
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-brain"></i>
+                <span>Depth Anything At Any Condition</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#abstract" class="nav-link" data-en="Abstract" data-zh="摘要">Abstract</a>
+                <a href="#authors" class="nav-link" data-en="Authors" data-zh="作者">Authors</a>
+                <a href="#results" class="nav-link" data-en="Results" data-zh="结果">Results</a>
+                <a href="#code" class="nav-link" data-en="Code" data-zh="代码">Code</a>
+                <a href="#citation" class="nav-link" data-en="Citation" data-zh="引用">Citation</a>
+                <div class="language-switcher">
+                    <button class="lang-btn active" data-lang="en">EN</button>
+                    <span class="lang-separator">|</span>
+                    <button class="lang-btn" data-lang="zh">中文</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主标题区域 -->
+    <header class="hero">
+        <div class="hero-content">
+            <div class="title-animation">
+                <h1 class="main-title">
+                    <span class="title-word">Depth Anything</span>
+                    <span class="title-word">At</span>
+                    <span class="title-word">Any</span>
+                    <span class="title-word">Condition</span>
+                </h1>
+                
+                <!-- 作者信息 -->
+                <div class="authors-list" id="authors">
+                    <a href="https://scholar.google.com/citations?user=boyuan_sun" class="author-link" target="_blank">
+                        Boyuan Sun<sup>*</sup>
+                    </a>
+                    <span class="author-separator">,</span>
+                    <a href="https://scholar.google.com/citations?user=modi_jin" class="author-link" target="_blank">
+                        Modi Jin<sup>*</sup>
+                    </a>
+                    <span class="author-separator">,</span>
+                    <a href="https://scholar.google.com/citations?user=bowen_yin" class="author-link" target="_blank">
+                        Bowen Yin
+                    </a>
+                    <span class="author-separator">,</span>
+                    <a href="https://scholar.google.com/citations?user=qibin_hou" class="author-link" target="_blank">
+                        Qibin Hou<sup>†</sup>
+                    </a>
+                </div>
+                
+                <!-- 单位信息 -->
+                <div class="affiliation">
+                    <p data-en="Nankai University" data-zh="南开大学">Nankai University</p>
+                </div>
+                
+                <div class="author-notes">
+                    <p data-en="<sup>*</sup>Equal contribution &nbsp;&nbsp; <sup>†</sup>Corresponding author" data-zh="<sup>*</sup>同等贡献 &nbsp;&nbsp; <sup>†</sup>通讯作者"><sup>*</sup>Equal contribution &nbsp;&nbsp; <sup>†</sup>Corresponding author</p>
+                </div>
+                
+                <!-- <div class="subtitle">
+                    <p data-en="Revolutionary depth estimation technology for any environmental conditions" data-zh="突破性的深度估计技术，适应任何环境条件">Revolutionary depth estimation technology for any environmental conditions</p>
+                </div> -->
+            </div>
+
+            <!-- 交互按钮 -->
+            <div class="cta-buttons">
+                <button class="cta-btn primary" id="paper-btn">
+                    <i class="fas fa-file-pdf"></i>
+                    <span data-en="Paper" data-zh="阅读论文">Paper</span>
+                </button>
+                <button class="cta-btn arxiv" id="arxiv-btn">
+                    <img src="image/arxiv.png" alt="arXiv" class="btn-icon">
+                    <span data-en="arXiv" data-zh="arXiv">arXiv</span>
+                </button>
+                <button class="cta-btn secondary" id="code-btn">
+                    <i class="fab fa-github"></i>
+                    <span data-en="Code" data-zh="查看代码">Code</span>
+                </button>
+                <button class="cta-btn huggingface" id="hf-btn">
+                    <img src="image/huggingface_logo.svg" alt="Hugging Face" class="btn-icon">
+                    <span data-en="Hugging Face" data-zh="Hugging Face">Hugging Face</span>
+                </button>
+                <button class="cta-btn tertiary" id="demo-btn">
+                    <i class="fas fa-play-circle"></i>
+                    <span data-en="Demo" data-zh="在线演示">Demo</span>
+                </button>
+            </div>
+            
+            <!-- Teaser 图片 -->
+            <div class="teaser-container">
+                <img src="image/teaser.png" alt="Depth Anything At Any Condition - Teaser" class="teaser-image">
+            </div>
+        </div>
+        
+        <!-- 滚动指示器 -->
+        <div class="scroll-indicator">
+            <div class="scroll-arrow">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- 摘要部分 -->
+    <section class="abstract-section" id="abstract">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-en="Research Abstract" data-zh="研究摘要">Research Abstract</h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="abstract-content">
+                <div class="abstract-card">
+                    <div class="abstract-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <div class="abstract-text">
+                        <h3 data-en="Innovation Breakthrough" data-zh="创新突破">Innovation Breakthrough</h3>
+                        <p data-en="This research proposes a revolutionary depth estimation method that maintains high-precision depth perception capabilities under various complex environmental conditions." data-zh="本研究提出了一种革命性的深度估计方法，能够在各种复杂环境条件下保持高精度的深度感知能力。">This research proposes a revolutionary depth estimation method that maintains high-precision depth perception capabilities under various complex environmental conditions.</p>
+                    </div>
+                </div>
+                
+                <div class="abstract-card">
+                    <div class="abstract-icon">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <div class="abstract-text">
+                        <h3 data-en="Technical Advantages" data-zh="技术优势">Technical Advantages</h3>
+                        <p data-en="Through advanced neural network architectures and adaptive algorithms, robust handling of factors such as lighting changes, weather conditions, and object materials is achieved." data-zh="通过先进的神经网络架构和自适应算法，实现了对光照变化、天气条件、物体材质等因素的robust处理。">Through advanced neural network architectures and adaptive algorithms, robust handling of factors such as lighting changes, weather conditions, and object materials is achieved.</p>
+                    </div>
+                </div>
+                
+                <div class="abstract-card">
+                    <div class="abstract-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="abstract-text">
+                        <h3 data-en="Performance Results" data-zh="性能表现">Performance Results</h3>
+                        <p data-en="Significant performance improvements have been achieved on multiple benchmark datasets, providing strong technical support for computer vision and robotics fields." data-zh="在多个基准数据集上取得了显著的性能提升，为计算机视觉和机器人领域提供了强有力的技术支撑。">Significant performance improvements have been achieved on multiple benchmark datasets, providing strong technical support for computer vision and robotics fields.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 结果展示区域 -->
+    <section class="results-section" id="results">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-en="Experimental Results" data-zh="实验结果">Experimental Results</h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="results-grid">
+                <div class="result-card" data-result="indoor">
+                    <div class="result-preview">
+                        <div class="result-placeholder">
+                            <i class="fas fa-home"></i>
+                            <span data-en="Indoor Scenes" data-zh="室内场景">Indoor Scenes</span>
+                        </div>
+                    </div>
+                    <div class="result-info">
+                        <h4 data-en="Indoor Depth Estimation" data-zh="室内深度估计">Indoor Depth Estimation</h4>
+                        <p data-en="High-precision depth perception in complex indoor environments" data-zh="在复杂室内环境中的高精度深度感知">High-precision depth perception in complex indoor environments</p>
+                    </div>
+                </div>
+                
+                <div class="result-card" data-result="outdoor">
+                    <div class="result-preview">
+                        <div class="result-placeholder">
+                            <i class="fas fa-tree"></i>
+                            <span data-en="Outdoor Scenes" data-zh="户外场景">Outdoor Scenes</span>
+                        </div>
+                    </div>
+                    <div class="result-info">
+                        <h4 data-en="Outdoor Depth Estimation" data-zh="户外深度估计">Outdoor Depth Estimation</h4>
+                        <p data-en="Adapts to various outdoor lighting and weather conditions" data-zh="适应各种户外光照和天气条件">Adapts to various outdoor lighting and weather conditions</p>
+                    </div>
+                </div>
+                
+                <div class="result-card" data-result="night">
+                    <div class="result-preview">
+                        <div class="result-placeholder">
+                            <i class="fas fa-moon"></i>
+                            <span data-en="Night Scenes" data-zh="夜间场景">Night Scenes</span>
+                        </div>
+                    </div>
+                    <div class="result-info">
+                        <h4 data-en="Low-light Environment" data-zh="低光照环境">Low-light Environment</h4>
+                        <p data-en="Stable performance under extremely low lighting conditions" data-zh="在极低光照条件下的稳定性能">Stable performance under extremely low lighting conditions</p>
+                    </div>
+                </div>
+                
+                <div class="result-card" data-result="weather">
+                    <div class="result-preview">
+                        <div class="result-placeholder">
+                            <i class="fas fa-cloud-rain"></i>
+                            <span data-en="Adverse Weather" data-zh="恶劣天气">Adverse Weather</span>
+                        </div>
+                    </div>
+                    <div class="result-info">
+                        <h4 data-en="Extreme Weather Conditions" data-zh="极端天气条件">Extreme Weather Conditions</h4>
+                        <p data-en="Robustness under adverse weather like rain, snow, and fog" data-zh="雨雪雾等恶劣天气下的鲁棒性">Robustness under adverse weather like rain, snow, and fog</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 代码和资源部分 -->
+    <section class="code-section" id="code">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-en="Open Source Resources" data-zh="开源资源">Open Source Resources</h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="code-resources">
+                <div class="resource-card">
+                    <div class="resource-icon">
+                        <i class="fab fa-github"></i>
+                    </div>
+                    <div class="resource-content">
+                        <h3 data-en="GitHub Repository" data-zh="GitHub 代码库">GitHub Repository</h3>
+                        <p data-en="Complete implementation code, pre-trained models and usage examples" data-zh="完整的实现代码、预训练模型和使用示例">Complete implementation code, pre-trained models and usage examples</p>
+                        <button class="resource-btn">
+                            <span data-en="Visit GitHub" data-zh="访问 GitHub">Visit GitHub</span>
+                            <i class="fas fa-external-link-alt"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <div class="resource-content">
+                        <h3 data-en="Datasets" data-zh="数据集">Datasets</h3>
+                        <p data-en="Download links for training and evaluation datasets" data-zh="训练和评估使用的数据集下载链接">Download links for training and evaluation datasets</p>
+                        <button class="resource-btn">
+                            <span data-en="Download Data" data-zh="下载数据">Download Data</span>
+                            <i class="fas fa-download"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="resource-content">
+                        <h3 data-en="Pre-trained Models" data-zh="预训练模型">Pre-trained Models</h3>
+                        <p data-en="Trained model weight files" data-zh="经过训练的模型权重文件">Trained model weight files</p>
+                        <button class="resource-btn">
+                            <span data-en="Download Models" data-zh="下载模型">Download Models</span>
+                            <i class="fas fa-download"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Citation部分 -->
+    <section class="citation-section" id="citation">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-en="Citation" data-zh="引用信息">Citation</h2>
+                <div class="section-divider"></div>
+            </div>
+            <div class="citation-content">
+                <div class="bibtex-container">
+                    <div class="bibtex-header">
+                        <span class="bibtex-label">BibTeX</span>
+                        <button class="copy-btn" id="copy-bibtex">
+                            <i class="fas fa-copy"></i>
+                            <span data-en="Copy" data-zh="复制">Copy</span>
+                        </button>
+                    </div>
+                    <pre class="bibtex-code" id="bibtex-text">@article{depth_anything_at_any_condition,
+  title={Depth Anything At Any Condition},
+  author={Sun, Boyuan and Jin, Modi and Yin, Bowen and Hou, Qibin},
+  journal={arXiv preprint},
+  year={2024},
+  institution={Nankai University}
+}</pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-text">
+                    <p data-en="&copy; 2024 Depth Anything At Any Condition. All rights reserved." data-zh="&copy; 2024 Depth Anything At Any Condition. 保留所有权利。">&copy; 2024 Depth Anything At Any Condition. All rights reserved.</p>
+                </div>
+                <!-- <div class="footer-links">
+                    <a href="#" class="footer-link" data-en="Contact Us" data-zh="联系我们">Contact Us</a>
+                    <a href="#" class="footer-link" data-en="Citation" data-zh="引用信息">Citation</a>
+                    <a href="#" class="footer-link" data-en="Related Work" data-zh="相关工作">Related Work</a>
+                </div> -->
+            </div>
+        </div>
+    </footer>
+
+    <!-- 交互式模态框 -->
+    <div class="modal" id="demo-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 data-en="Live Demo" data-zh="在线演示">Live Demo</h3>
+                <button class="modal-close" id="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="demo-placeholder">
+                    <i class="fas fa-play-circle"></i>
+                    <p data-en="Demo feature coming soon, stay tuned!" data-zh="演示功能即将推出，敬请期待！">Demo feature coming soon, stay tuned!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
