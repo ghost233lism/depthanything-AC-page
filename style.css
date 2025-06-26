@@ -1032,6 +1032,88 @@ section {
     text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
 }
 
+/* License部分样式 */
+.license-section {
+    background: linear-gradient(135deg, rgba(46, 204, 113, 0.08), rgba(39, 174, 96, 0.06));
+    backdrop-filter: blur(15px);
+}
+
+.license-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.license-container {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 3rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    animation: fadeInUp 1s ease 0.5s both;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.license-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 2.5rem;
+    color: #2ecc71;
+    flex-shrink: 0;
+}
+
+.license-icon i {
+    display: block;
+}
+
+.license-text {
+    flex: 1;
+}
+
+.license-text h3 {
+    color: var(--light-color);
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+.license-text p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    text-align: justify;
+}
+
+.license-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.license-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+    color: white;
+    text-decoration: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+}
+
+.license-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(46, 204, 113, 0.4);
+    background: linear-gradient(135deg, #27ae60, #229954);
+}
+
 /* Citation部分样式 */
 .citation-section {
     background: linear-gradient(135deg, rgba(79, 172, 254, 0.1), rgba(0, 242, 254, 0.08));
@@ -1692,5 +1774,26 @@ body {
     
     .table-caption p {
         font-size: 0.85rem;
+    }
+    
+    .license-container {
+        flex-direction: column;
+        text-align: center;
+        padding: 2rem;
+        gap: 1.5rem;
+    }
+    
+    .license-icon {
+        font-size: 2rem;
+    }
+    
+    .license-text h3 {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+    }
+    
+    .license-text p {
+        font-size: 1rem;
+        text-align: left;
     }
 } 
