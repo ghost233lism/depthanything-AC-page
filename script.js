@@ -817,7 +817,7 @@ function initializeComparisonSliders() {
 function setupSliderInteraction(slider) {
     const handle = slider.querySelector('.slider-handle');
     const afterImage = slider.querySelector('.after-image');
-    let isDragging = false;
+    let isHovering = false;
     let sliderRect = slider.getBoundingClientRect();
     
     // 更新滑块边界
@@ -870,33 +870,35 @@ function setupSliderInteraction(slider) {
         }
     }
     
-    // 鼠标按下事件
-    function handleMouseDown(e) {
-        isDragging = true;
+    // 鼠标进入事件
+    function handleMouseEnter(e) {
+        isHovering = true;
         updateSliderRect();
         slider.style.cursor = 'ew-resize';
-        updateSlider(e.clientX);
         
-        // 防止图片拖拽
-        e.preventDefault();
+        // 立即更新滑块位置到鼠标位置
+        updateSlider(e.clientX);
     }
     
-    // 鼠标移动事件
+    // 鼠标移动事件（悬停模式）
     function handleMouseMove(e) {
-        if (!isDragging) return;
+        if (!isHovering) return;
         
+        // 实时跟随鼠标位置
         updateSlider(e.clientX);
     }
     
-    // 鼠标松开事件
-    function handleMouseUp() {
-        isDragging = false;
-        slider.style.cursor = 'ew-resize';
+    // 鼠标离开事件
+    function handleMouseLeave() {
+        isHovering = false;
+        
+        // 可选：鼠标离开后保持当前位置，或重置到中心位置
+        // 这里选择保持当前位置，让用户看到最后的对比效果
+        slider.style.cursor = 'default';
     }
     
     // 触摸事件处理（移动端支持）
     function handleTouchStart(e) {
-        isDragging = true;
         updateSliderRect();
         const touch = e.touches[0];
         updateSlider(touch.clientX);
@@ -904,26 +906,19 @@ function setupSliderInteraction(slider) {
     }
     
     function handleTouchMove(e) {
-        if (!isDragging) return;
-        
         const touch = e.touches[0];
         updateSlider(touch.clientX);
         e.preventDefault();
     }
     
-    function handleTouchEnd() {
-        isDragging = false;
-    }
+    // 绑定鼠标悬停事件（替代原来的拖拽事件）
+    slider.addEventListener('mouseenter', handleMouseEnter);
+    slider.addEventListener('mousemove', handleMouseMove);
+    slider.addEventListener('mouseleave', handleMouseLeave);
     
-    // 绑定鼠标事件
-    slider.addEventListener('mousedown', handleMouseDown);
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
-    
-    // 绑定触摸事件
+    // 绑定触摸事件（移动端支持）
     slider.addEventListener('touchstart', handleTouchStart, { passive: false });
-    document.addEventListener('touchmove', handleTouchMove, { passive: false });
-    document.addEventListener('touchend', handleTouchEnd);
+    slider.addEventListener('touchmove', handleTouchMove, { passive: false });
     
     // 响应式处理 - 窗口大小改变时更新边界
     window.addEventListener('resize', updateSliderRect);

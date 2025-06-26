@@ -558,8 +558,8 @@ body {
 
 /* Quick Preview 部分样式 */
 .preview-section {
-    padding: 5rem 0;
-    background: rgba(0, 0, 0, 0.1);
+    padding: 3rem 0;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.08), rgba(118, 75, 162, 0.06));
     backdrop-filter: blur(10px);
 }
 
@@ -585,13 +585,52 @@ body {
     box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
 }
 
+.comparison-slider:hover {
+    cursor: crosshair;
+}
+
+.comparison-slider::before {
+    content: '🖱️ Hover mouse to see comparison';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 20;
+    white-space: nowrap;
+}
+
+[data-lang="zh"] .comparison-slider::before {
+    content: '🖱️ 将鼠标悬停在此处查看对比效果';
+}
+
+.comparison-slider:not(:hover)::before {
+    opacity: 1;
+    animation: showOnce 4s ease-in-out forwards;
+}
+
+@keyframes showOnce {
+    0% { opacity: 0; }
+    25% { opacity: 0.8; }
+    75% { opacity: 0.8; }
+    100% { opacity: 0; }
+}
+
 .comparison-slider {
     position: relative;
     width: 100%;
     height: 280px;
     overflow: hidden;
-    cursor: ew-resize;
+    cursor: default;
     user-select: none;
+    transition: all 0.3s ease;
 }
 
 
@@ -646,6 +685,7 @@ body {
     font-size: 1rem;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease;
+    pointer-events: none;
 }
 
 .slider-button:hover {
@@ -682,13 +722,13 @@ body {
 
 /* 通用节区样式 */
 section {
-    padding: 5rem 0;
+    padding: 3rem 0;
     position: relative;
 }
 
 .section-header {
     text-align: center;
-    margin-bottom: 4rem;
+    margin-bottom: 2.5rem;
 }
 
 .section-title {
@@ -708,13 +748,13 @@ section {
 
 /* 摘要部分样式 */
 .abstract-section {
-    background: rgba(0, 0, 0, 0.2);
+    background: linear-gradient(135deg, rgba(240, 147, 251, 0.1), rgba(245, 87, 108, 0.08));
     backdrop-filter: blur(10px);
 }
 
 .abstract-text-container {
     max-width: 900px;
-    margin: 0 auto 4rem;
+    margin: 0 auto 2.5rem;
     text-align: center;
 }
 
@@ -975,8 +1015,10 @@ section {
 
 /* Contact部分样式 */
 .contact-section {
-    padding: 3rem 0;
+    padding: 2rem 0;
     margin: 1rem 0;
+    background: linear-gradient(135deg, rgba(240, 147, 251, 0.08), rgba(245, 87, 108, 0.06));
+    backdrop-filter: blur(10px);
 }
 
 .contact-content {
@@ -992,7 +1034,7 @@ section {
 
 /* Citation部分样式 */
 .citation-section {
-    background: rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, rgba(79, 172, 254, 0.1), rgba(0, 242, 254, 0.08));
     backdrop-filter: blur(15px);
 }
 
@@ -1237,7 +1279,7 @@ section {
     }
     
     .abstract-text-container {
-        margin-bottom: 3rem;
+        margin-bottom: 2rem;
         padding: 0 1rem;
     }
     
@@ -1429,14 +1471,16 @@ body {
 
 /* Framework 模块样式 */
 .framework-section {
-    padding: 4rem 0;
-    margin: 2rem 0;
+    padding: 2.5rem 0;
+    margin: 1.5rem 0;
+    background: linear-gradient(135deg, rgba(79, 172, 254, 0.06), rgba(0, 242, 254, 0.04));
+    backdrop-filter: blur(10px);
 }
 
 .framework-image-container {
     position: relative;
     max-width: 1000px;
-    margin: 0 auto 3rem auto;
+    margin: 0 auto 2rem auto;
     overflow: hidden;
 }
 
@@ -1492,7 +1536,7 @@ body {
 /* Framework 响应式设计 */
 @media (max-width: 768px) {
     .framework-image-container {
-        margin: 0 1rem 3rem 1rem;
+        margin: 0 1rem 2rem 1rem;
     }
     
     .framework-image {
@@ -1519,21 +1563,21 @@ body {
 
 /* Data Coverage 表格样式 */
 .data-coverage-section {
-    padding: 4rem 0;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    padding: 2.5rem 0;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.12), rgba(118, 75, 162, 0.1));
     backdrop-filter: blur(10px);
-    margin: 2rem 0;
+    margin: 1.5rem 0;
 }
 
 .data-table-container {
     max-width: 900px;
     margin: 0 auto;
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.9);
     border-radius: 15px;
     padding: 2rem;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 20px 60px rgba(102, 126, 234, 0.15);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(102, 126, 234, 0.2);
 }
 
 .table-wrapper {
