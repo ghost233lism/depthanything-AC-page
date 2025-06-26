@@ -812,6 +812,9 @@ function initializeComparisonSliders() {
     sliders.forEach(slider => {
         setupSliderInteraction(slider);
     });
+    
+    // 检查是否需要显示提示
+    checkAndShowSliderHints(sliders);
 }
 
 function setupSliderInteraction(slider) {
@@ -931,6 +934,30 @@ function setupSliderInteraction(slider) {
     
     // 初始化标签状态（滑块默认在50%位置，两个标签都显示）
     updateLabelsVisibility(50);
+}
+
+// 检查并显示滑块提示
+function checkAndShowSliderHints(sliders) {
+    const HINT_KEY = 'sliderHintShown';
+    const hintShown = localStorage.getItem(HINT_KEY);
+    
+    // 如果是第一次访问，显示提示
+    if (!hintShown) {
+        // 给所有滑块添加显示提示的类
+        sliders.forEach(slider => {
+            slider.classList.add('show-hint');
+        });
+        
+        // 4秒后标记为已显示，防止页面刷新时重复显示
+        setTimeout(() => {
+            localStorage.setItem(HINT_KEY, 'true');
+            
+            // 移除提示类
+            sliders.forEach(slider => {
+                slider.classList.remove('show-hint');
+            });
+        }, 4000);
+    }
 }
 
 // 初始化懒加载功能

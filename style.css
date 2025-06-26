@@ -611,7 +611,7 @@ body {
     content: '🖱️ 将鼠标悬停在此处查看对比效果';
 }
 
-.comparison-slider:not(:hover)::before {
+.comparison-slider.show-hint:not(:hover)::before {
     opacity: 1;
     animation: showOnce 4s ease-in-out forwards;
 }
