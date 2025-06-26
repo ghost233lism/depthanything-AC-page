@@ -52,7 +52,7 @@ body {
         #4facfe 75%, 
         #667eea 100%);
     background-size: 400% 400%;
-    animation: gradientShift 30s ease infinite;
+    animation: gradientShift 50s ease infinite;
     z-index: -2;
 }
 
