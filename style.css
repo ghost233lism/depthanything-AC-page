@@ -1002,10 +1002,18 @@ section {
     transition: all 0.3s ease;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 0.5rem;
     font-weight: 500;
     margin-top: auto;
     align-self: center;
+    text-decoration: none;
+    min-width: 160px;
+    text-align: center;
+    white-space: nowrap;
+    font-size: 1rem !important;
+    height: 48px;
+    line-height: 1;
 }
 
 .resource-btn:hover {

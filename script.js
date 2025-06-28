@@ -712,8 +712,21 @@ function handleResultCardClick() {
 
 // 更新资源按钮点击消息
 function handleResourceClick(e) {
-    e.preventDefault();
     const resourceType = this.querySelector('span').textContent;
+    
+    // 如果是"Download Models"按钮且有href属性，允许正常跳转
+    if ((resourceType === 'Download Models' || resourceType === '下载模型') && this.hasAttribute('href')) {
+        // 不阻止默认行为，让链接正常跳转
+        // 按钮点击动画
+        this.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+            this.style.transform = '';
+        }, 150);
+        return;
+    }
+    
+    // 其他按钮显示"即将发布"消息
+    e.preventDefault();
     
     const messages = {
         'en': {
