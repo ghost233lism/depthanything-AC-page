@@ -56,6 +56,7 @@ function setupEventListeners() {
     const paperBtn = document.getElementById('paper-btn');
     const arxivBtn = document.getElementById('arxiv-btn');
     const codeBtn = document.getElementById('code-btn');
+    const hfBtn = document.getElementById('hf-btn');
     const demoBtn = document.getElementById('demo-btn');
     
     if (paperBtn) {
@@ -68,6 +69,10 @@ function setupEventListeners() {
     
     if (codeBtn) {
         codeBtn.addEventListener('click', showCodeAlert);
+    }
+    
+    if (hfBtn) {
+        hfBtn.addEventListener('click', openHuggingFace);
     }
     
     if (demoBtn) {
@@ -675,11 +680,27 @@ function showArxivAlert() {
 }
 
 function showCodeAlert() {
+    // 跳转到GitHub代码仓库
+    window.open('https://github.com/HVision-NKU/DepthAnythingAC', '_blank');
+    
+    // 显示跳转消息
     const messages = {
-        'en': '💻 GitHub repository will be open sourced soon, stay tuned!',
-        'zh': '💻 GitHub代码库即将开源，敬请期待！'
+        'en': '💻 Opening GitHub repository...',
+        'zh': '💻 正在打开GitHub代码仓库...'
     };
-    showNotification(messages[currentLanguage], 'info');
+    showNotification(messages[currentLanguage], 'success');
+}
+
+function openHuggingFace() {
+    // 跳转到Hugging Face页面
+    window.open('https://huggingface.co/spaces/ghost233lism/DepthAnything-AC', '_blank');
+    
+    // 显示跳转消息
+    const messages = {
+        'en': '🤗 Opening Hugging Face demo page...',
+        'zh': '🤗 正在打开Hugging Face演示页面...'
+    };
+    showNotification(messages[currentLanguage], 'success');
 }
 
 // 更新结果卡片点击消息
@@ -714,9 +735,17 @@ function handleResultCardClick() {
 function handleResourceClick(e) {
     const resourceType = this.querySelector('span').textContent;
     
-    // 如果是"Download Models"按钮且有href属性，允许正常跳转
-    if ((resourceType === 'Download Models' || resourceType === '下载模型') && this.hasAttribute('href')) {
-        // 不阻止默认行为，让链接正常跳转
+    // 如果是"Visit GitHub"或"访问 GitHub"按钮，跳转到GitHub仓库
+    if (resourceType === 'Visit GitHub' || resourceType === '访问 GitHub') {
+        e.preventDefault();
+        window.open('https://github.com/HVision-NKU/DepthAnythingAC', '_blank');
+        
+        const messages = {
+            'en': '💻 Opening GitHub repository...',
+            'zh': '💻 正在打开GitHub代码仓库...'
+        };
+        showNotification(messages[currentLanguage], 'success');
+        
         // 按钮点击动画
         this.style.transform = 'scale(0.95)';
         setTimeout(() => {
@@ -725,24 +754,41 @@ function handleResourceClick(e) {
         return;
     }
     
+    // 如果是"Download Models"按钮且有href属性，允许正常跳转
+    if ((resourceType === 'Download Models' || resourceType === '下载模型') && this.hasAttribute('href')) {
+        // 显示跳转提示消息
+        const messages = {
+            'en': '📥 Opening Google Drive to download models...',
+            'zh': '📥 正在打开Google Drive下载模型...'
+        };
+        showNotification(messages[currentLanguage], 'success');
+        
+        // 按钮点击动画
+        this.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+            this.style.transform = '';
+        }, 150);
+        
+        // 不阻止默认行为，让链接正常跳转
+        return;
+    }
+    
     // 其他按钮显示"即将发布"消息
     e.preventDefault();
     
     const messages = {
         'en': {
-            'Visit GitHub': '🚀 GitHub repository will be online soon, stay tuned!',
             'Download Data': '📊 Dataset download links will be provided soon!',
             'Download Models': '🧠 Pre-trained models will be released soon!'
         },
         'zh': {
-            '访问 GitHub': '🚀 GitHub代码库即将上线，敬请关注！',
             '下载数据': '📊 数据集下载链接即将提供！',
             '下载模型': '🧠 预训练模型即将发布！'
         }
     };
     
     const langMessages = messages[currentLanguage];
-    const message = langMessages[resourceType] || langMessages[Object.keys(langMessages)[0]];
+    const message = langMessages[resourceType] || '📌 This feature will be available soon!';
     showNotification(message, 'info');
     
     // 按钮点击动画
