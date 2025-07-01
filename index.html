@@ -137,58 +137,341 @@
                 <h2 class="section-title" data-en="Quick Preview" data-zh="快速预览">Quick Preview</h2>
                 <div class="section-divider"></div>
             </div>
-            <div class="preview-grid">
-                <!-- 第一行对比 -->
-                <div class="comparison-container">
-                    <div class="comparison-slider" data-before="image/preview/1-1.png" data-after="image/preview/1-2.png">
-                        <div class="comparison-images">
-                            <img class="before-image lazy-load" data-src="image/preview/1-1.png" alt="Before">
-                            <img class="after-image lazy-load" data-src="image/preview/1-2.png" alt="After">
-                        </div>
-                        <div class="slider-handle">
-                            <div class="slider-line"></div>
-                            <div class="slider-button">
-                                <i class="fas fa-arrows-alt-h"></i>
+            
+            <!-- 版本切换控制 -->
+            <div class="version-controls">
+                <div class="version-tabs">
+                    <button class="version-tab active" data-version="v1">
+                        <span data-en="vs DepthAnything V1" data-zh="对比 DepthAnything V1">vs DepthAnything V1</span>
+                    </button>
+                    <button class="version-tab" data-version="v2">
+                        <span data-en="vs DepthAnything V2" data-zh="对比 DepthAnything V2">vs DepthAnything V2</span>
+                    </button>
+                    <button class="version-tab" data-version="pro">
+                        <span data-en="vs DepthPro" data-zh="对比 DepthPro">vs DepthPro</span>
+                    </button>
+                </div>
+                <div class="version-indicators">
+                    <div class="indicator active" data-version="v1"></div>
+                    <div class="indicator" data-version="v2"></div>
+                    <div class="indicator" data-version="pro"></div>
+                </div>
+            </div>
+            
+            <!-- 轮播容器 -->
+            <div class="preview-carousel">
+                <div class="carousel-inner">
+                    <!-- V1 对比页面 -->
+                    <div class="carousel-page active" data-page="v1">
+                        <div class="preview-grid-v2">
+                            <!-- V1 第一组图片 -->
+                            <div class="image-group">
+                                <div class="original-image-container">
+                                    <img class="original-image lazy-load" data-src="image/preview_v1/image_1.png" alt="Original Image 1">
+                                </div>
+                                <div class="comparison-container">
+                                    <div class="comparison-slider" data-before="image/preview_v1/image_1_v1.png" data-after="image/preview_v1/image_1_ours.png">
+                                        <div class="comparison-images">
+                                            <img class="before-image lazy-load" data-src="image/preview_v1/image_1_v1.png" alt="DepthAnything V1">
+                                            <img class="after-image lazy-load" data-src="image/preview_v1/image_1_ours.png" alt="Ours">
+                                        </div>
+                                        <div class="comparison-labels">
+                                            <div class="label-left">DepthAnything V1</div>
+                                            <div class="label-right">Ours</div>
+                                        </div>
+                                        <div class="slider-handle">
+                                            <div class="slider-line"></div>
+                                            <div class="slider-button">
+                                                <i class="fas fa-arrows-alt-h"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- V1 第二组图片 -->
+                            <div class="image-group">
+                                <div class="original-image-container">
+                                    <img class="original-image lazy-load" data-src="image/preview_v1/image_2.png" alt="Original Image 2">
+                                </div>
+                                <div class="comparison-container">
+                                    <div class="comparison-slider" data-before="image/preview_v1/image_2_v1.png" data-after="image/preview_v1/image_2_ours.png">
+                                        <div class="comparison-images">
+                                            <img class="before-image lazy-load" data-src="image/preview_v1/image_2_v1.png" alt="DepthAnything V1">
+                                            <img class="after-image lazy-load" data-src="image/preview_v1/image_2_ours.png" alt="Ours">
+                                        </div>
+                                        <div class="comparison-labels">
+                                            <div class="label-left">DepthAnything V1</div>
+                                            <div class="label-right">Ours</div>
+                                        </div>
+                                        <div class="slider-handle">
+                                            <div class="slider-line"></div>
+                                            <div class="slider-button">
+                                                <i class="fas fa-arrows-alt-h"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- V1 第三组图片 -->
+                            <div class="image-group">
+                                <div class="original-image-container">
+                                    <img class="original-image lazy-load" data-src="image/preview_v1/image_3.png" alt="Original Image 3">
+                                </div>
+                                <div class="comparison-container">
+                                    <div class="comparison-slider" data-before="image/preview_v1/image_3_v1.png" data-after="image/preview_v1/image_3_ours.png">
+                                        <div class="comparison-images">
+                                            <img class="before-image lazy-load" data-src="image/preview_v1/image_3_v1.png" alt="DepthAnything V1">
+                                            <img class="after-image lazy-load" data-src="image/preview_v1/image_3_ours.png" alt="Ours">
+                                        </div>
+                                        <div class="comparison-labels">
+                                            <div class="label-left">DepthAnything V1</div>
+                                            <div class="label-right">Ours</div>
+                                        </div>
+                                        <div class="slider-handle">
+                                            <div class="slider-line"></div>
+                                            <div class="slider-button">
+                                                <i class="fas fa-arrows-alt-h"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- V1 第四组图片 -->
+                            <div class="image-group">
+                                <div class="original-image-container">
+                                    <img class="original-image lazy-load" data-src="image/preview_v1/image_4.png" alt="Original Image 4">
+                                </div>
+                                <div class="comparison-container">
+                                    <div class="comparison-slider" data-before="image/preview_v1/image_4_v1.png" data-after="image/preview_v1/image_4_ours.png">
+                                        <div class="comparison-images">
+                                            <img class="before-image lazy-load" data-src="image/preview_v1/image_4_v1.png" alt="DepthAnything V1">
+                                            <img class="after-image lazy-load" data-src="image/preview_v1/image_4_ours.png" alt="Ours">
+                                        </div>
+                                        <div class="comparison-labels">
+                                            <div class="label-left">DepthAnything V1</div>
+                                            <div class="label-right">Ours</div>
+                                        </div>
+                                        <div class="slider-handle">
+                                            <div class="slider-line"></div>
+                                            <div class="slider-button">
+                                                <i class="fas fa-arrows-alt-h"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                    
+                    <!-- V2 对比页面 -->
+                    <div class="carousel-page" data-page="v2">
+                        <div class="preview-grid-v2">
+                            <!-- V2 第一组图片 -->
+                            <div class="image-group">
+                                <div class="original-image-container">
+                                    <img class="original-image lazy-load" data-src="image/preview_v2/image_1.png" alt="Original Image 1">
+                                </div>
+                                <div class="comparison-container">
+                                    <div class="comparison-slider" data-before="image/preview_v2/image_1_v2.png" data-after="image/preview_v2/image_1_ours.png">
+                                        <div class="comparison-images">
+                                            <img class="before-image lazy-load" data-src="image/preview_v2/image_1_v2.png" alt="DepthAnything V2">
+                                            <img class="after-image lazy-load" data-src="image/preview_v2/image_1_ours.png" alt="Ours">
+                                        </div>
+                                        <div class="comparison-labels">
+                                            <div class="label-left">DepthAnything V2</div>
+                                            <div class="label-right">Ours</div>
+                                        </div>
+                                        <div class="slider-handle">
+                                            <div class="slider-line"></div>
+                                            <div class="slider-button">
+                                                <i class="fas fa-arrows-alt-h"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-                <!-- 第二行对比 -->
-                <div class="comparison-container">
-                    <div class="comparison-slider" data-before="image/preview/2-1.png" data-after="image/preview/2-2.png">
-                        <div class="comparison-images">
-                            <img class="before-image lazy-load" data-src="image/preview/2-1.png" alt="Before">
-                            <img class="after-image lazy-load" data-src="image/preview/2-2.png" alt="After">
-                        </div>
-                        <div class="comparison-labels">
-                            <div class="label-left">DepthAnythingV1</div>
-                            <div class="label-right">Ours</div>
-                        </div>
-                        <div class="slider-handle">
-                            <div class="slider-line"></div>
-                            <div class="slider-button">
-                                <i class="fas fa-arrows-alt-h"></i>
+                            <!-- V2 第二组图片 -->
+                            <div class="image-group">
+                                <div class="original-image-container">
+                                    <img class="original-image lazy-load" data-src="image/preview_v2/image_2.png" alt="Original Image 2">
+                                </div>
+                                <div class="comparison-container">
+                                    <div class="comparison-slider" data-before="image/preview_v2/image_2_v2.png" data-after="image/preview_v2/image_2_ours.png">
+                                        <div class="comparison-images">
+                                            <img class="before-image lazy-load" data-src="image/preview_v2/image_2_v2.png" alt="DepthAnything V2">
+                                            <img class="after-image lazy-load" data-src="image/preview_v2/image_2_ours.png" alt="Ours">
+                                        </div>
+                                        <div class="comparison-labels">
+                                            <div class="label-left">DepthAnything V2</div>
+                                            <div class="label-right">Ours</div>
+                                        </div>
+                                        <div class="slider-handle">
+                                            <div class="slider-line"></div>
+                                            <div class="slider-button">
+                                                <i class="fas fa-arrows-alt-h"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- V2 第三组图片 -->
+                            <div class="image-group">
+                                <div class="original-image-container">
+                                    <img class="original-image lazy-load" data-src="image/preview_v2/image_3.png" alt="Original Image 3">
+                                </div>
+                                <div class="comparison-container">
+                                    <div class="comparison-slider" data-before="image/preview_v2/image_3_v2.png" data-after="image/preview_v2/image_3_ours.png">
+                                        <div class="comparison-images">
+                                            <img class="before-image lazy-load" data-src="image/preview_v2/image_3_v2.png" alt="DepthAnything V2">
+                                            <img class="after-image lazy-load" data-src="image/preview_v2/image_3_ours.png" alt="Ours">
+                                        </div>
+                                        <div class="comparison-labels">
+                                            <div class="label-left">DepthAnything V2</div>
+                                            <div class="label-right">Ours</div>
+                                        </div>
+                                        <div class="slider-handle">
+                                            <div class="slider-line"></div>
+                                            <div class="slider-button">
+                                                <i class="fas fa-arrows-alt-h"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- V2 第四组图片 -->
+                            <div class="image-group">
+                                <div class="original-image-container">
+                                    <img class="original-image lazy-load" data-src="image/preview_v2/image_4.png" alt="Original Image 4">
+                                </div>
+                                <div class="comparison-container">
+                                    <div class="comparison-slider" data-before="image/preview_v2/image_4_v2.png" data-after="image/preview_v2/image_4_ours.png">
+                                        <div class="comparison-images">
+                                            <img class="before-image lazy-load" data-src="image/preview_v2/image_4_v2.png" alt="DepthAnything V2">
+                                            <img class="after-image lazy-load" data-src="image/preview_v2/image_4_ours.png" alt="Ours">
+                                        </div>
+                                        <div class="comparison-labels">
+                                            <div class="label-left">DepthAnything V2</div>
+                                            <div class="label-right">Ours</div>
+                                        </div>
+                                        <div class="slider-handle">
+                                            <div class="slider-line"></div>
+                                            <div class="slider-button">
+                                                <i class="fas fa-arrows-alt-h"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                    
+                    <!-- DepthPro 对比页面 -->
+                    <div class="carousel-page" data-page="pro">
+                        <div class="preview-grid-v2">
+                            <!-- DepthPro 第一组图片 -->
+                            <div class="image-group">
+                                <div class="original-image-container">
+                                    <img class="original-image lazy-load" data-src="image/preview_pro/image_1.png" alt="Original Image 1">
+                                </div>
+                                <div class="comparison-container">
+                                    <div class="comparison-slider" data-before="image/preview_pro/image_1_pro.png" data-after="image/preview_pro/image_1_ours.png">
+                                        <div class="comparison-images">
+                                            <img class="before-image lazy-load" data-src="image/preview_pro/image_1_pro.png" alt="DepthPro">
+                                            <img class="after-image lazy-load" data-src="image/preview_pro/image_1_ours.png" alt="Ours">
+                                        </div>
+                                        <div class="comparison-labels">
+                                            <div class="label-left">DepthPro</div>
+                                            <div class="label-right">Ours</div>
+                                        </div>
+                                        <div class="slider-handle">
+                                            <div class="slider-line"></div>
+                                            <div class="slider-button">
+                                                <i class="fas fa-arrows-alt-h"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-                <!-- 第三行对比 -->
-                <div class="comparison-container">
-                    <div class="comparison-slider" data-before="image/preview/3-1.png" data-after="image/preview/3-2.png">
-                        <div class="comparison-images">
-                            <img class="before-image lazy-load" data-src="image/preview/3-1.png" alt="Before">
-                            <img class="after-image lazy-load" data-src="image/preview/3-2.png" alt="After">
-                        </div>
-                        <div class="comparison-labels">
-                            <div class="label-left">DepthAnythingV1</div>
-                            <div class="label-right">Ours</div>
-                        </div>
-                        <div class="slider-handle">
-                            <div class="slider-line"></div>
-                            <div class="slider-button">
-                                <i class="fas fa-arrows-alt-h"></i>
+                            <!-- DepthPro 第二组图片 -->
+                            <div class="image-group">
+                                <div class="original-image-container">
+                                    <img class="original-image lazy-load" data-src="image/preview_pro/image_2.png" alt="Original Image 2">
+                                </div>
+                                <div class="comparison-container">
+                                    <div class="comparison-slider" data-before="image/preview_pro/image_2_pro.png" data-after="image/preview_pro/image_2_ours.png">
+                                        <div class="comparison-images">
+                                            <img class="before-image lazy-load" data-src="image/preview_pro/image_2_pro.png" alt="DepthPro">
+                                            <img class="after-image lazy-load" data-src="image/preview_pro/image_2_ours.png" alt="Ours">
+                                        </div>
+                                        <div class="comparison-labels">
+                                            <div class="label-left">DepthPro</div>
+                                            <div class="label-right">Ours</div>
+                                        </div>
+                                        <div class="slider-handle">
+                                            <div class="slider-line"></div>
+                                            <div class="slider-button">
+                                                <i class="fas fa-arrows-alt-h"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- DepthPro 第三组图片 -->
+                            <div class="image-group">
+                                <div class="original-image-container">
+                                    <img class="original-image lazy-load" data-src="image/preview_pro/image_3.png" alt="Original Image 3">
+                                </div>
+                                <div class="comparison-container">
+                                    <div class="comparison-slider" data-before="image/preview_pro/image_3_pro.png" data-after="image/preview_pro/image_3_ours.png">
+                                        <div class="comparison-images">
+                                            <img class="before-image lazy-load" data-src="image/preview_pro/image_3_pro.png" alt="DepthPro">
+                                            <img class="after-image lazy-load" data-src="image/preview_pro/image_3_ours.png" alt="Ours">
+                                        </div>
+                                        <div class="comparison-labels">
+                                            <div class="label-left">DepthPro</div>
+                                            <div class="label-right">Ours</div>
+                                        </div>
+                                        <div class="slider-handle">
+                                            <div class="slider-line"></div>
+                                            <div class="slider-button">
+                                                <i class="fas fa-arrows-alt-h"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- DepthPro 第四组图片 -->
+                            <div class="image-group">
+                                <div class="original-image-container">
+                                    <img class="original-image lazy-load" data-src="image/preview_pro/image_4.png" alt="Original Image 4">
+                                </div>
+                                <div class="comparison-container">
+                                    <div class="comparison-slider" data-before="image/preview_pro/image_4_pro.png" data-after="image/preview_pro/image_4_ours.png">
+                                        <div class="comparison-images">
+                                            <img class="before-image lazy-load" data-src="image/preview_pro/image_4_pro.png" alt="DepthPro">
+                                            <img class="after-image lazy-load" data-src="image/preview_pro/image_4_ours.png" alt="Ours">
+                                        </div>
+                                        <div class="comparison-labels">
+                                            <div class="label-left">DepthPro</div>
+                                            <div class="label-right">Ours</div>
+                                        </div>
+                                        <div class="slider-handle">
+                                            <div class="slider-line"></div>
+                                            <div class="slider-button">
+                                                <i class="fas fa-arrows-alt-h"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -530,7 +813,7 @@
                     For commercial licensing, please contact:
                 </p>
                 <p class="contact-text" style="font-size: 1.5rem;">
-                    andrewhoux@gmail.com
+                    andrewhoux[AT]gmail.com
                 </p>
             </div>
         </div>

@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeLanguage();
     initializeComparisonSliders();
     initializeLazyLoading();
+    initializeVersionCarousel();
 });
 
 // 初始化动画效果
@@ -1111,6 +1112,186 @@ function preloadCriticalImages() {
     });
 }
 
+// 初始化版本轮播控制器
+function initializeVersionCarousel() {
+    const carousel = document.querySelector('.preview-carousel');
+    const carouselInner = document.querySelector('.carousel-inner');
+    const versionTabs = document.querySelectorAll('.version-tab');
+    const indicators = document.querySelectorAll('.indicator');
+    const pages = document.querySelectorAll('.carousel-page');
+    
+    if (!carousel || !carouselInner) return;
+    
+    let currentVersion = 'v1';
+    let isTransitioning = false;
+    
+    // 版本切换函数
+    function switchToVersion(version) {
+        if (isTransitioning || version === currentVersion) return;
+        
+        isTransitioning = true;
+        const previousVersion = currentVersion;
+        currentVersion = version;
+        
+        // 更新活跃状态
+        updateActiveStates(version);
+        
+        // 切换轮播页面
+        switchCarouselPage(version, previousVersion);
+        
+        // 重新初始化新页面的对比滑块
+        setTimeout(() => {
+            initializePageSliders(version);
+            isTransitioning = false;
+        }, 600);
+        
+        // 显示通知
+        const messages = {
+            'v1': {
+                'en': '🔄 Switched to DepthAnything V1 comparison',
+                'zh': '🔄 已切换到 DepthAnything V1 对比'
+            },
+            'v2': {
+                'en': '🔄 Switched to DepthAnything V2 comparison', 
+                'zh': '🔄 已切换到 DepthAnything V2 对比'
+            },
+            'pro': {
+                'en': '🔄 Switched to DepthPro comparison',
+                'zh': '🔄 已切换到 DepthPro 对比'
+            }
+        };
+        showNotification(messages[version][currentLanguage], 'success');
+    }
+    
+    // 更新活跃状态
+    function updateActiveStates(version) {
+        // 更新标签页状态
+        versionTabs.forEach(tab => {
+            tab.classList.toggle('active', tab.dataset.version === version);
+        });
+        
+        // 更新指示器状态
+        indicators.forEach(indicator => {
+            indicator.classList.toggle('active', indicator.dataset.version === version);
+        });
+        
+        // 更新页面状态
+        pages.forEach(page => {
+            page.classList.toggle('active', page.dataset.page === version);
+        });
+    }
+    
+    // 切换轮播页面
+    function switchCarouselPage(version, previousVersion) {
+        let offset = 0;
+        if (version === 'v1') offset = 0;
+        else if (version === 'v2') offset = -33.33;
+        else if (version === 'pro') offset = -66.66;
+        
+        carouselInner.style.transform = `translateX(${offset}%)`;
+        
+        // 添加切换动画类
+        carousel.classList.add('switching');
+        
+        setTimeout(() => {
+            carousel.classList.remove('switching');
+        }, 600);
+    }
+    
+    // 初始化页面滑块
+    function initializePageSliders(version) {
+        const activePage = document.querySelector(`.carousel-page[data-page="${version}"]`);
+        if (!activePage) return;
+        
+        const sliders = activePage.querySelectorAll('.comparison-slider');
+        sliders.forEach(slider => {
+            setupSliderInteraction(slider);
+        });
+        
+        // 延迟加载图片
+        const lazyImages = activePage.querySelectorAll('.lazy-load:not(.loaded)');
+        lazyImages.forEach(img => {
+            loadImage(img);
+        });
+    }
+    
+    // 绑定事件监听器
+    versionTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            switchToVersion(tab.dataset.version);
+        });
+    });
+    
+    indicators.forEach(indicator => {
+        indicator.addEventListener('click', () => {
+            switchToVersion(indicator.dataset.version);
+        });
+    });
+    
+    // 键盘导航支持
+    document.addEventListener('keydown', (e) => {
+        if (e.target.closest('.preview-section')) {
+            if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                if (currentVersion === 'v2') switchToVersion('v1');
+                else if (currentVersion === 'pro') switchToVersion('v2');
+            } else if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                if (currentVersion === 'v1') switchToVersion('v2');
+                else if (currentVersion === 'v2') switchToVersion('pro');
+            }
+        }
+    });
+    
+    // 触摸滑动支持
+    let startX = 0;
+    let endX = 0;
+    
+    carousel.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+    });
+    
+    carousel.addEventListener('touchend', (e) => {
+        endX = e.changedTouches[0].clientX;
+        handleSwipe();
+    });
+    
+    function handleSwipe() {
+        const threshold = 50;
+        const diff = startX - endX;
+        
+        if (Math.abs(diff) > threshold) {
+            if (diff > 0) {
+                // 向左滑动，切换到下一个版本
+                if (currentVersion === 'v1') switchToVersion('v2');
+                else if (currentVersion === 'v2') switchToVersion('pro');
+            } else if (diff < 0) {
+                // 向右滑动，切换到上一个版本
+                if (currentVersion === 'v2') switchToVersion('v1');
+                else if (currentVersion === 'pro') switchToVersion('v2');
+            }
+        }
+    }
+    
+    // 初始化时加载V1页面的滑块
+    initializePageSliders('v1');
+    
+    // 预加载V2和DepthPro页面的图片
+    setTimeout(() => {
+        const v2Images = document.querySelectorAll('.carousel-page[data-page="v2"] .lazy-load:not(.loaded)');
+        v2Images.forEach(img => {
+            loadImage(img);
+        });
+    }, 2000);
+    
+    setTimeout(() => {
+        const proImages = document.querySelectorAll('.carousel-page[data-page="pro"] .lazy-load:not(.loaded)');
+        proImages.forEach(img => {
+            loadImage(img);
+        });
+    }, 4000);
+}
+
 // 导出主要函数（如果需要在其他地方使用）
 window.PageInteractions = {
     showNotification,
@@ -1123,5 +1304,6 @@ window.PageInteractions = {
     copyBibtex: copyBibtexToClipboard,
     initializeComparisonSliders,
     initializeLazyLoading,
-    preloadCriticalImages
+    preloadCriticalImages,
+    initializeVersionCarousel
 }; 

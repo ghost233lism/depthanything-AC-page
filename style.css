@@ -571,6 +571,210 @@ body {
     margin: 0 auto;
 }
 
+/* 新的预览网格布局 */
+.preview-grid-v2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.image-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease forwards;
+    min-height: 600px;
+}
+
+.image-group:nth-child(1) { animation-delay: 0.2s; }
+.image-group:nth-child(2) { animation-delay: 0.4s; }
+.image-group:nth-child(3) { animation-delay: 0.6s; }
+.image-group:nth-child(4) { animation-delay: 0.8s; }
+
+.original-image-container {
+    text-align: center;
+    height: 280px;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.original-image-container h4 {
+    color: var(--light-color);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.original-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: all 0.3s ease;
+}
+
+.original-image-container:hover {
+    transform: scale(1.02);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+.image-group .comparison-container {
+    margin-top: 0.5rem;
+}
+
+/* 版本控制样式 */
+.version-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+    animation: fadeInUp 0.8s ease 0.3s both;
+}
+
+.version-tabs {
+    display: flex;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50px;
+    padding: 0.3rem;
+}
+
+.version-tab {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    flex: 1;
+    text-align: center;
+}
+
+.version-tab::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s;
+}
+
+.version-tab:hover::before {
+    left: 100%;
+}
+
+.version-tab:hover {
+    color: var(--light-color);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.version-tab.active {
+    background: var(--gradient-1);
+    color: var(--light-color);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+.version-indicators {
+    display: flex;
+    gap: 0.8rem;
+}
+
+.indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.indicator.active {
+    background: var(--gradient-2);
+    box-shadow: 0 0 15px rgba(240, 147, 251, 0.5);
+    transform: scale(1.2);
+}
+
+/* 轮播容器样式 */
+.preview-carousel {
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+.carousel-inner {
+    position: relative;
+    width: 300%;
+    display: flex;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.carousel-page {
+    width: 33.33%;
+    flex-shrink: 0;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+}
+
+.carousel-page.active {
+    opacity: 1;
+}
+
+.carousel-page:not(.active) .image-group {
+    animation: none;
+}
+
+/* 轮播切换动画效果 */
+.preview-carousel.switching {
+    overflow: hidden;
+}
+
+.preview-carousel.switching .carousel-inner {
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.preview-carousel.switching .carousel-page {
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.preview-carousel.switching .carousel-page:not(.active) {
+    transform: scale(0.95);
+}
+
+/* 版本切换按钮悬停效果增强 */
+.version-tab:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+}
+
+.version-tab.active:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+/* 指示器悬停效果 */
+.indicator:hover {
+    transform: scale(1.3);
+    background: var(--gradient-1);
+    box-shadow: 0 0 20px rgba(102, 126, 234, 0.4);
+}
+
 .comparison-container {
     position: relative;
     border-radius: 20px;
@@ -1319,12 +1523,52 @@ section {
         grid-template-columns: repeat(2, 1fr);
         gap: 1.5rem;
     }
+    
+    .preview-grid-v2 {
+        max-width: 900px;
+        gap: 2.5rem;
+    }
+    
+    .image-group {
+        gap: 1.3rem;
+    }
+    
+    .version-controls {
+        margin-bottom: 2.5rem;
+    }
+    
+    .version-tab {
+        padding: 0.7rem 1.5rem;
+        font-size: 0.95rem;
+    }
 }
 
 @media (max-width: 800px) {
     .code-resources {
         grid-template-columns: 1fr;
         gap: 1.5rem;
+    }
+    
+    .preview-grid-v2 {
+        grid-template-columns: 1fr;
+        max-width: 700px;
+        gap: 2rem;
+    }
+    
+    .version-controls {
+        margin-bottom: 2rem;
+        gap: 1rem;
+    }
+    
+    .version-tabs {
+        width: 100%;
+        max-width: 400px;
+    }
+    
+    .version-tab {
+        flex: 1;
+        padding: 0.7rem 0.8rem;
+        font-size: 0.85rem;
     }
 }
 
@@ -1440,6 +1684,50 @@ section {
         padding: 0 1rem;
     }
     
+    .preview-grid-v2 {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+        padding: 0 1rem;
+    }
+    
+    .image-group {
+        gap: 1.2rem;
+    }
+    
+    .original-image-container {
+        height: 250px;
+    }
+    
+    .original-image-container h4 {
+        font-size: 1rem;
+        margin-bottom: 0.6rem;
+    }
+    
+    .comparison-slider {
+        height: 250px;
+    }
+    
+    .version-controls {
+        margin-bottom: 2rem;
+        gap: 1rem;
+    }
+    
+    .version-tabs {
+        width: 100%;
+        max-width: 350px;
+    }
+    
+    .version-tab {
+        flex: 1;
+        padding: 0.6rem 0.5rem;
+        font-size: 0.8rem;
+    }
+    
+    .indicator {
+        width: 10px;
+        height: 10px;
+    }
+    
     .comparison-slider {
         height: 250px;
     }
@@ -1478,6 +1766,52 @@ section {
     
     .authors-list {
         font-size: 0.9rem;
+    }
+    
+    .preview-grid-v2 {
+        gap: 2rem;
+        padding: 0 0.5rem;
+    }
+    
+    .image-group {
+        gap: 1rem;
+    }
+    
+    .original-image-container {
+        height: 220px;
+    }
+    
+    .original-image-container h4 {
+        font-size: 0.95rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .comparison-slider {
+        height: 220px;
+    }
+    
+    .version-controls {
+        gap: 0.8rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .version-tabs {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .version-tab {
+        padding: 0.5rem 0.3rem;
+        font-size: 0.75rem;
+    }
+    
+    .indicator {
+        width: 8px;
+        height: 8px;
+    }
+    
+    .version-indicators {
+        gap: 0.6rem;
     }
 }
 
