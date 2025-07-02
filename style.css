@@ -480,6 +480,18 @@ body {
     box-shadow: 0 15px 35px rgba(255, 126, 95, 0.4);
 }
 
+
+.huggingface-model{
+    background: linear-gradient(135deg, #6a82fb, #8c54ff, #6a82fb);
+    color: var(--light-color);
+    box-shadow: 0 10px 25px rgba(106, 130, 251, 0.3);
+}
+
+.huggingface-model:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(106, 130, 251, 0.4);
+}
+
 /* .huggingface .btn-icon {
     filter: brightness(0) invert(1);
 } */

@@ -2,8 +2,7 @@
 const navbar = document.querySelector('.navbar');
 const navLinks = document.querySelectorAll('.nav-link');
 const ctaButtons = document.querySelectorAll('.cta-btn');
-const modal = document.getElementById('demo-modal');
-const modalClose = document.getElementById('modal-close');
+
 const scrollIndicator = document.querySelector('.scroll-indicator');
 const resultCards = document.querySelectorAll('.result-card');
 const abstractCards = document.querySelectorAll('.abstract-card');
@@ -58,7 +57,7 @@ function setupEventListeners() {
     const arxivBtn = document.getElementById('arxiv-btn');
     const codeBtn = document.getElementById('code-btn');
     const hfBtn = document.getElementById('hf-btn');
-    const demoBtn = document.getElementById('demo-btn');
+    const modelBtn = document.getElementById('model-btn');
     
     if (paperBtn) {
         paperBtn.addEventListener('click', showPaperAlert);
@@ -76,22 +75,11 @@ function setupEventListeners() {
         hfBtn.addEventListener('click', openHuggingFace);
     }
     
-    if (demoBtn) {
-        demoBtn.addEventListener('click', showDemoModal);
+    if (modelBtn) {
+        modelBtn.addEventListener('click', openHuggingFaceModel);
     }
     
-    // 模态框事件
-    if (modalClose) {
-        modalClose.addEventListener('click', closeDemoModal);
-    }
-    
-    if (modal) {
-        modal.addEventListener('click', function(e) {
-            if (e.target === modal) {
-                closeDemoModal();
-            }
-        });
-    }
+
     
     // 滚动事件
     window.addEventListener('scroll', handleScroll);
@@ -238,19 +226,7 @@ function handleScroll() {
 
 // 这些函数已在文件末尾重新定义以支持多语言
 
-function showDemoModal() {
-    if (modal) {
-        modal.classList.add('show');
-        document.body.style.overflow = 'hidden';
-    }
-}
 
-function closeDemoModal() {
-    if (modal) {
-        modal.classList.remove('show');
-        document.body.style.overflow = '';
-    }
-}
 
 // 这个函数已在文件末尾重新定义以支持多语言
 
@@ -278,13 +254,8 @@ function handleAuthorLinkLeave() {
 
 // 键盘事件处理
 function handleKeyPress(e) {
-    // ESC键关闭模态框
-    if (e.key === 'Escape' && modal.classList.contains('show')) {
-        closeDemoModal();
-    }
-    
     // 空格键滚动到下一部分
-    if (e.key === ' ' && !modal.classList.contains('show')) {
+    if (e.key === ' ') {
         e.preventDefault();
         scrollToNext();
     }
@@ -700,6 +671,18 @@ function openHuggingFace() {
     const messages = {
         'en': '🤗 Opening Hugging Face demo page...',
         'zh': '🤗 正在打开Hugging Face演示页面...'
+    };
+    showNotification(messages[currentLanguage], 'success');
+}
+
+function openHuggingFaceModel() {
+    // 跳转到Hugging Face模型页面
+    window.open('https://huggingface.co/ghost233lism/DepthAnything-AC', '_blank');
+    
+    // 显示跳转消息
+    const messages = {
+        'en': '🤗 Opening Hugging Face model page...',
+        'zh': '🤗 正在打开Hugging Face模型页面...'
     };
     showNotification(messages[currentLanguage], 'success');
 }
@@ -1297,8 +1280,6 @@ window.PageInteractions = {
     showNotification,
     scrollToAbstract,
     scrollToTop,
-    showDemoModal,
-    closeDemoModal,
     switchLanguage: handleLanguageSwitch,
     getCurrentLanguage: () => currentLanguage,
     copyBibtex: copyBibtexToClipboard,
